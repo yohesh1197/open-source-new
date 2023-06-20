@@ -168,8 +168,13 @@ class CreateOperatingUnit extends React.Component<Props> {
         this.navigateBack();
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.OU_CREATION_SUCCESS);
       },
-      failureCb: (e: Error) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.OU_CREATION_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.OU_CREATION_FAIL))
+        }
+      }
     });
   };
 }

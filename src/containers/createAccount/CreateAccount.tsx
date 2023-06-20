@@ -168,8 +168,13 @@ class CreateAccount extends React.PureComponent<Props> {
         this.handleNavigation();
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.ACCOUNT_CREATION_SUCCESS);
       },
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_CREATION_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_CREATION_FAIL))
+        }
+      }
     });
   };
 }

@@ -148,8 +148,13 @@ class CreateRegion extends React.Component<Props> {
         this.props.history.push(PROTECTED_ROUTES.regionDashboard);
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.REGION_CREATION_SUCCESS);
       },
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.REGION_CREATION_ERROR))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.REGION_CREATION_ERROR))
+        }
+      }
     });
   };
 }

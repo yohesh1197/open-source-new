@@ -104,8 +104,13 @@ class CreateSuperAdmin extends React.Component<Props> {
         this.props.history.push(PROTECTED_ROUTES.superAdmin);
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.SUPER_ADMIN_CREATE_SUCCESS);
       },
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.SUPER_ADMIN_CREATE_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.SUPER_ADMIN_CREATE_FAIL))
+        }
+      }
     });
   };
 }

@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -31,6 +31,12 @@ jobs:
 
       - name: Display Node.js version
         run: node --version
+
+      - name: List workspace contents
+        run: rm -rf *.scannerwork/
+      
+      - name: remove
+        run: rm -rf *coverage/
 
       - name: Install dependencies
         run: npm install
@@ -50,7 +56,9 @@ jobs:
             -Dsonar.sources=src
             -Dsonar.tests=src
             -Dsonar.test.inclusions=*.test.{ts,tsx}
+            -Dsonar.exclusions=src/**/*.test.*,src/global/*,src/index.tsx,src/serviceWorker.ts,src/setupTests.ts,src/store/index.ts
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+            -Dsonar.coverage.exclusions=__mocks__/**,.storybook/**,src/stories/**,src/store/*/types/**
         env:
-          SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 

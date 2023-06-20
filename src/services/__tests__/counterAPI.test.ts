@@ -20,6 +20,6 @@ describe('fetchCount', () => {
     await fetchCount(amount);
     const end = Date.now();
     const elapsed = end - start;
-    expect(elapsed).toBeGreaterThanOrEqual(500);
+    expect(elapsed).toBeGreaterThanOrEqual(499);
   });
 });

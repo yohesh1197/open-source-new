@@ -263,8 +263,14 @@ class AccountSummary extends React.PureComponent<Props, IAccountDetailState> {
       tenantId,
       id: accountId,
       searchTerm: search,
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_DETAIL_FETCH_ERROR)),
+
+      failureCb: (e: Error) => {
+          try {
+            throw e;
+          } catch (error:any) {
+            toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_DETAIL_FETCH_ERROR))
+          }
+        },  
       successCb: (res: any) => {
         if (!res?.id) {
           toastCenter.error(APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_DETAIL_FETCH_ERROR);
@@ -357,7 +363,13 @@ class AccountSummary extends React.PureComponent<Props, IAccountDetailState> {
         this.getAccountDetail();
         this.handleCancelClick();
       },
-      failureCb: (e) => toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_UPDATE_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.ACCOUNT_UPDATE_FAIL))
+        }
+      }
     });
   };
 
@@ -389,8 +401,13 @@ class AccountSummary extends React.PureComponent<Props, IAccountDetailState> {
           this.handleCancelClick();
           this.getAccountDetail();
         },
-        failureCb: (e) =>
-          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_ADMIN_CREATE_FAIL))
+        failureCb: (e: Error) => {
+          try {
+            throw e;
+          } catch (error:any) {
+            toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_ADMIN_CREATE_FAIL))
+          }
+        }
       });
     } else {
       admin.tenantId = tenantId;
@@ -406,8 +423,13 @@ class AccountSummary extends React.PureComponent<Props, IAccountDetailState> {
           this.handleCancelClick();
           this.getAccountDetail();
         },
-        failureCb: (e) =>
-          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_ADMIN_UPDATE_FAIL))
+        failureCb: (e: Error) => {
+          try {
+            throw e;
+          } catch (error:any) {
+            toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_ADMIN_UPDATE_FAIL))
+          }
+        }
       });
     }
   };
@@ -451,8 +473,13 @@ class AccountSummary extends React.PureComponent<Props, IAccountDetailState> {
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.ACCOUNT_ADMIN_DELETE_SUCCESS);
         this.getAccountDetail();
       },
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_ADMIN_DELETE_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_ADMIN_DELETE_FAIL))
+        }
+      }
     });
   };
 
@@ -483,8 +510,13 @@ class AccountSummary extends React.PureComponent<Props, IAccountDetailState> {
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.ACCOUNT_DEACTIVATE_SUCCESS);
         this.handleNavigation();
       },
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_DEACTIVATE_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.ACCOUNT_DEACTIVATE_FAIL))
+        }
+      }
     });
   };
 }

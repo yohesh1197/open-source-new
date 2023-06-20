@@ -299,8 +299,13 @@ class RegionDetail extends React.PureComponent<Props, IRegionDetailState> {
       tenantId,
       id: regionId,
       searchTerm: search,
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.REGION_DETAIL_FETCH_ERROR))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.REGION_DETAIL_FETCH_ERROR))
+        }
+      }
     });
   };
 
@@ -410,8 +415,13 @@ class RegionDetail extends React.PureComponent<Props, IRegionDetailState> {
           this.handleCancelClick();
           this.getRegionDetail();
         },
-        failureCb: (e) =>
-          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.REGION_ADMIN_CREATE_FAIL))
+        failureCb: (e: Error) => {
+          try {
+            throw e;
+          } catch (error:any) {
+            toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.REGION_ADMIN_CREATE_FAIL))
+          }
+        }
       });
     } else {
       values.tenantId = tenantId;
@@ -448,7 +458,13 @@ class RegionDetail extends React.PureComponent<Props, IRegionDetailState> {
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.REGION_UPDATE_SUCCESS);
         this.handleCancelClick();
       },
-      failureCb: (e) => toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.REGION_UPDATE_FAIL))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.REGION_UPDATE_FAIL))
+        }
+      }
     });
   };
 
@@ -464,9 +480,10 @@ class RegionDetail extends React.PureComponent<Props, IRegionDetailState> {
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.REGION_ADMIN_DELETE_SUCCESS);
         this.getRegionDetail();
       },
-      failureCb: (e) =>
+      failureCb: (e) =>{
         toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.REGION_ADMIN_DELETE_FAIL))
-    });
+      }
+      });
   };
 
   /**
@@ -484,8 +501,9 @@ class RegionDetail extends React.PureComponent<Props, IRegionDetailState> {
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.REGION_DEACTIVATE_SUCCESS);
         this.props.history.push(PROTECTED_ROUTES.regionDashboard);
       },
-      failureCb: (e) =>
+      failureCb: (e) =>{
         toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.ERROR, APPCONSTANTS.REGION_DEACTIVATE_FAIL))
+      }
     });
   };
 }

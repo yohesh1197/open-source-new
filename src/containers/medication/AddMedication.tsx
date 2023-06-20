@@ -309,8 +309,13 @@ class AddMedication extends React.PureComponent<Props, IAddMedicationState> {
         this.goBackToMedication();
         toastCenter.success(APPCONSTANTS.SUCCESS, APPCONSTANTS.MEDICATION_CREATION_SUCCESS);
       },
-      failureCb: (e) =>
-        toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.MEDICATION_CREATION_ERROR))
+      failureCb: (e: Error) => {
+        try {
+          throw e;
+        } catch (error:any) {
+          toastCenter.error(...getErrorToastArgs(e, APPCONSTANTS.OOPS, APPCONSTANTS.MEDICATION_CREATION_ERROR))
+        }
+      }
     });
   };
 }

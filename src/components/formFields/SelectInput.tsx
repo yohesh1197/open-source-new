@@ -180,11 +180,19 @@ export const AsyncSelectInput = ({
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
-    timeoutId = setTimeout(async () => {
+    timeoutId = setTimeout(() => {
       let response = [];
       if (loadInputOptions && inputValue.length > 2) {
-        response = await loadInputOptions(inputValue);
-        callback(response);
+        loadInputOptions(inputValue)
+          .then((result) => {
+            response = result;
+            callback(response);
+          })
+          .catch((error) => {
+            // Handle any errors that occur during the promise execution
+            console.error(error);
+            callback([]);
+          });
       } else {
         callback([]);
       }
